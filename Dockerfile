@@ -16,12 +16,14 @@ WORKDIR /root
 
 ENV OB_VER=0.2.19
 ENV BLAS=OpenBLAS-${OB_VER}
-ENV OB_FLAGS="CC=gcc FC=gfortran USE_OPENMP=1 USE_THREADS=1 NO_SHARED=1 NO_CBLAS=1 NO_LAPACK=1 MAKE_NB_JOBS=8"
+ENV OB_FLAGS="CC=gcc FC=gfortran NO_SHARED=1 NO_CBLAS=1 NO_LAPACK=1"
 RUN mkdir ${BLAS}
 RUN /bin/bash -l -c '\
     curl -sSL "http://github.com/xianyi/OpenBLAS/archive/v${OB_VER}.tar.gz" | \
     tar xz && cd ${BLAS} && \
-    make ${OB_FLAGS} && make ${OB_FLAGS} PREFIX=/opt/${BLAS} install && \ 
+    ( make ${OB_FLAGS} USE_OPENMP=1 USE_THREADS=1 MAKE_NB_JOBS=8 || \
+      make ${OB_FLAGS} USE_OPENMP=0 USE_THREADS=0 MAKE_NB_JOBS=1 ) && \
+    make ${OB_FLAGS} PREFIX=/opt/${BLAS} install && \
     cd ../ && rm -rf ${BLAS}'
 
 ENV FFTW=fftw-3.3.5

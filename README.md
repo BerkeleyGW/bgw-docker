@@ -29,7 +29,9 @@ Usage
 -----
 
 * In order to run BerkeleyGW with X MPI ranks, just use the syntax:
-`bgw-docker [mpirun -n X] <BerkeleyGW executable>`
+```
+bgw-docker [mpirun -n X] <BerkeleyGW executable>
+```
 
 * You can run several parallel commands stored in, say, `script.sh`, with
 `bgw-docker <./script.sh>`. This is slightly faster than running each command
