@@ -63,13 +63,6 @@ RUN /bin/bash -l -c '\
     cd ../ && rm -rf su-exec-0.2'
 
 
-# Remove stack limit, otherwise OpenMP crashes.
-# Add bgw user, home dir, and scratch
-ENV TMPDIR=/scratch
-RUN echo '* - stack unlimited' > /etc/security/limits.d/90-core.conf
-RUN mkdir ${TMPDIR}
-
-
 # Download and compile BerkeleyGW.
 ENV BGW_URL="https://berkeley.box.com/shared/static/829s6ha4popx1g4cslpklzh5znf2v6la.gz"
 ENV BGW_DIR=/opt/BerkeleyGW-1.2.0
@@ -82,10 +75,15 @@ RUN /bin/bash -l -c '\
     chown root:root . -R && chmod a+rX . -R'
 
 
+# Remove stack limit, otherwise OpenMP crashes.
 # Setup path and the directory where we'll run the calculation
 # Adapted from: https://denibertovic.com/posts/handling-permissions-with-docker-volumes/
+RUN echo '* - stack unlimited' > /etc/security/limits.d/90-core.conf
 ENV PATH="${BGW_DIR}/bin:${PATH}"
-WORKDIR ${TMPDIR}
+ENV TMPDIR=/tmp
+ENV HOST_DIR=/host
+RUN mkdir ${HOST_DIR}
+WORKDIR ${HOST_DIR}
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/bin/bash"]
