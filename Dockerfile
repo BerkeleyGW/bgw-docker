@@ -1,9 +1,10 @@
 FROM ubuntu:16.04
 MAINTAINER Felipe H. da Jornada <jornada@berkeley.edu>
 
-RUN apt-get update && apt-get -y install \
+RUN apt-get -q update && apt-get -qy install \
     gfortran g++ libopenmpi-dev openmpi-bin libhdf5-openmpi-dev \
-    python-numpy make curl && apt-get clean
+    python-numpy make curl && \
+    rm -rf /var/lib/apt/lists/*
 
 
 # Build and install the following libraries with OpenMP support:
@@ -72,6 +73,7 @@ RUN mkdir ${TMPDIR}
 # Download and compile BerkeleyGW.
 ENV BGW_URL="https://berkeley.box.com/shared/static/829s6ha4popx1g4cslpklzh5znf2v6la.gz"
 ENV BGW_DIR=/opt/BerkeleyGW-1.2.0
+ENV BGW_EXAMPLES=$BGW_DIR/examples
 RUN mkdir ${BGW_DIR}
 COPY arch.mk ${BGW_DIR}
 RUN /bin/bash -l -c '\

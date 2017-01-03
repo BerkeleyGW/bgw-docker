@@ -1,13 +1,17 @@
 BGW-docker
 ==========
 
-A containerized version of [BerkeleyGW](http://berkeleygw.org).
+A containerized version of [BerkeleyGW](http://berkeleygw.org) for Linux and Mac.
 
 
 Installation
 ------------
 
-1. Install docker. If you are running on Linux, make sure your current user is a member of the `docker` group.
+1. Install [docker](https://docker.com). On Linux, you can simply type
+`sudo /bin/sh -c 'curl -sSL https://get.docker.com/ | sh'` or `sudo /bin/sh -c 'wget -qO- https://get.docker.com/ | sh'`.
+
+If you are running on Linux, make sure your current user is a member of the `docker` group after the installation is finished:
+`sudo usermod -aG $(whoami)`. This way, you won't need to be root to run docker. You will have to log out and back in for this to take effect!
 
 2. Build a local, automatically-tuned version of bgw-docker:
 ```
