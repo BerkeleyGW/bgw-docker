@@ -21,7 +21,7 @@ docker build -t bgw https://github.com/BerkeleyGW/bgw-docker.git
 3. Add the `bgw-docker` alias to your `.bashrc` (or `.zshrc`) and source it:
 ```
 cat >> ~/.bashrc <<-'EOF'
-alias bgw-docker='docker run -ti --rm -v $(pwd):/scratch -e LOCAL_USER_ID=$(id -u) -e LOCAL_GROUP_ID=$(id -g) -e OMP_NUM_THREADS=$OMP_NUM_THREADS bgw'
+alias bgw-docker='docker run --rm -v $(pwd):/scratch -e LOCAL_USER_ID=$(id -u) -e LOCAL_GROUP_ID=$(id -g) -e OMP_NUM_THREADS=$OMP_NUM_THREADS bgw'
 EOF
 source ~/.bashrc
 ```
@@ -54,7 +54,6 @@ bgw-docker ./script_0.sh
 bgw-docker ./script_1.sh
 bgw-docker ./script_2.sh
 bgw-docker ./script_3.sh
-bgw-docker ./script_4.sh
 ```
 
 
