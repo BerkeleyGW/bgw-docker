@@ -11,7 +11,7 @@ Installation
 `sudo /bin/sh -c 'curl -sSL https://get.docker.com/ | sh'` or `sudo /bin/sh -c 'wget -qO- https://get.docker.com/ | sh'`.
 
 If you are running on Linux, make sure your current user is a member of the `docker` group after the installation is finished:
-`sudo usermod -aG $(whoami)`. This way, you won't need to be root to run docker. You will have to log out and back in for this to take effect!
+`sudo usermod -aG docker $(whoami)`. This way, you won't need to be root to run docker. You will have to log out and back in for this to take effect!
 
 2. Build a local, automatically-tuned version of bgw-docker:
 ```
