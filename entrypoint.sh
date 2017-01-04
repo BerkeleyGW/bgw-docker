@@ -23,7 +23,7 @@ if ! cd "$dname"; then
 	exit 2
 fi
 
-echo "Starting bgw-docker containerd with UID / GID = $USER_ID / $GROUP_ID at $dname"
+echo "Starting bgw-docker container with UID / GID = $USER_ID / $GROUP_ID at $dname"
 groupadd -g $GROUP_ID -o bgw
 useradd --shell /bin/bash -u $USER_ID -g $GROUP_ID -o -c "" -m bgw
 export HOME=/home/bgw
